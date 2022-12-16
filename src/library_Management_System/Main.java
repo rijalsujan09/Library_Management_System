@@ -12,11 +12,12 @@ public class Main {
 		
 		for(int i=0; i<Heading.length; i++) {
 			System.out.print(Heading[i]);
-			Thread.sleep(300);
+			Thread.sleep(100);
 		}
 		System.out.println();
 
 		Users.usertype(scan);
+		System.out.println("done project");
 
 	}
 
