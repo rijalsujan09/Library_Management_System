@@ -1,85 +1,96 @@
 package library_Management_System;
 
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Scanner;
 
-public class Librarian {
+public class Librarian  {
+	private int serialNo;
+	private String bookName;
+	private String authorName;
+	private int bookquantity;
 
-//	OPTIONS for librarian
-//---------------------------------------------------------------------------------------------------------------------------
+	public int getSerialNo() {
+		return serialNo;
+	}
+
+	public void setSerialNo(int serialNo) {
+		this.serialNo = serialNo;
+	}
+
+	public String getBookName() {
+		return bookName;
+	}
+
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
+	}
+
+	public String getAuthorName() {
+		return authorName;
+	}
+
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
+	}
+
+	public int getBookquantity() {
+		return bookquantity;
+	}
+
+	public void setBookquantity(int bookquantity) {
+		this.bookquantity = bookquantity;
+	}
+
+	public Librarian() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Librarian(int serialNo, String bookName, String authorName, int bookquantity) {
+		super();
+		this.serialNo = serialNo;
+		this.bookName = bookName;
+		this.authorName = authorName;
+		this.bookquantity = bookquantity;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(authorName, bookName, bookquantity, serialNo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Librarian other = (Librarian) obj;
+		return Objects.equals(authorName, other.authorName) && Objects.equals(bookName, other.bookName)
+				&& bookquantity == other.bookquantity && serialNo == other.serialNo;
+
+	}
+
+	@Override
+	public String toString() {
+		return "Librarian [serialNo=" + serialNo + ", bookName=" + bookName + ", authorName=" + authorName
+				+ ", bookquantity=" + bookquantity + "]";
+	}
+
+	
+
 	public static void librarianfunction(Scanner scan) {
-
-		System.out.println("1. Add Students");
-		System.out.println("2. Add Books to library ");
-		System.out.println("3. View All users");
-		System.out.println("4. Issue books for Students");
-		System.out.println("5. Entry of return books");
-		System.out.println("6. Remove books from library");
-		System.out.println("7. Exit from system");
-
-		System.out.println("\nEnter your choice::");
-
-		int choice = scan.nextInt();
-
-		{
-			if (choice == 1) {
-				// Add Students
-
-				System.out.println("Enter first name::");
-				String firstName = scan.next();
-
-				System.out.println("Enter last name::");
-				String lastName = scan.next();
-
-				System.out.println("Enter your emailid:");
-				String email = scan.next();
-			
-			} else if (choice == 2) {
-				// Add books to library
-				System.out.println("Enter serial number of book:");
-				int sNo = scan.nextInt();
-				System.out.println("Enter book name: ");
-				String bookname = scan.next();
-				System.out.println("Enter Author Name:");
-				String Author = scan.next();
-				System.out.println("Enter quantity of book: ");
-				int quantity = scan.nextInt();
-
-			} else if (choice == 3) {
-				// View all users/Students
-			}
-		}
-
+		// TODO Auto-generated method stub
+		
 	}
-//---------------------------------------------------------------------------------------------------------------------------
 
-//	login function of librarian
-//----------------------------------------------------------------------------------------------------------------------------------
 	public static void login_l(Scanner scan) {
-
-		System.out.println();
-
-		while (true) {
-			System.out.println("Enter username:: ");
-			String username = scan.next();
-
-			System.out.println("Enter password:: ");
-			String password = scan.next();
-
-			if (username.equals("a") && (password.contentEquals("1"))) {
-				System.out.println("Login Successfull.You can proceed further.");
-
-				// FUNC
-				librarianfunction(scan);
-
-				break;
-
-			} else {
-				System.out.println("\nWrong Inputs.Try again!!\n");
-
-				continue;
-			}
-		}
+		// TODO Auto-generated method stub
+		
 	}
-//---------------------------------------------------------------------------------------------------------------------------------	
 
 }
