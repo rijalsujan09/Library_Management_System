@@ -89,6 +89,10 @@ public class Books {
 	@Override
 	public String toString() {
 		return "Books [serialNo=" + serialNo + ", bookName=" + bookName + ", authorName=" + authorName
+<<<<<<< HEAD
+				+ ", bookquantity=" + bookquantity + "]";
+		//
+=======
 				+ ", bookquantity=" + bookquantity + ", issueddate=" + issueddate + ", returneddate=" + returneddate
 				+ "]";
 	}
@@ -101,6 +105,7 @@ public class Books {
 	}
 	public void setIssueddate(LocalDate issueddate) {
 		this.issueddate = issueddate;
+>>>>>>> f36af4ebc55b6e547083b98f2e837c2c1279e3e0
 	}
 
 }
