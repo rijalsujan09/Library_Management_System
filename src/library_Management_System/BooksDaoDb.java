@@ -23,7 +23,7 @@ public class BooksDaoDb implements BooksDaoInterface {
 		Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
 		String insertQuery = "INSERT INTO studentlist ( studentid ,first_name, last_name,email)" + "value ( '"
-				+ student.getStudentid() + "', '" + student.getFirstname() + "', '" + student.getFirstname() + "','"
+				+ student.getStudentid() + "', '" + student.getFirstname() + "', '" + student.getLastname() + "','"
 				+ student.getEmail() + "')";
 
 		System.out.println(insertQuery);
@@ -60,10 +60,12 @@ public class BooksDaoDb implements BooksDaoInterface {
 			ResultSet results = statement.executeQuery(query);
 
 			while (results.next()) {
-
+				System.out.println("-----------------------------------");
 				System.out.println(results.getString(1));
 				System.out.println(results.getString(2));
 				System.out.println(results.getString(3));
+				System.out.println(results.getString(4));
+				System.out.println();
 
 			}
 
@@ -132,11 +134,12 @@ public class BooksDaoDb implements BooksDaoInterface {
 			ResultSet results = statement.executeQuery(query);
 
 			while (results.next()) {
-
+				System.out.println("----------------------------------------");
 				System.out.println(results.getString(1));
 				System.out.println(results.getString(2));
 				System.out.println(results.getString(3));
 				System.out.println(results.getString(4));
+				System.out.println();
 
 			}
 
@@ -283,7 +286,7 @@ public class BooksDaoDb implements BooksDaoInterface {
 	}
 
 	@Override
-	public Student searchbystudentid(Student studentid) throws ClassNotFoundException, SQLException, IOException {
+	public Student searchbystudentid(int studentid) throws ClassNotFoundException, SQLException, IOException {
 		Connection con = null;
 		Statement statement = null;
 		Student student = null;

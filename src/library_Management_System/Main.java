@@ -25,7 +25,7 @@ public class Main {
 		login_l(scan);
 
 		// Users.usertype(scan);
-		System.out.println("Choose from the following options:");
+		System.out.println("Librarian functions:\n");
 		// Librarian.librarianfunction(scan);
 		LibrarianService lb = new LibrarianService();
 
@@ -35,7 +35,7 @@ public class Main {
 			System.out.println("1. Add Students");
 			System.out.println("2. Add Books to library ");
 			System.out.println("3. View All Students");
-			System.out.println("4.View All Books ");
+			System.out.println("4. View All Books ");
 			System.out.println("5. Issue books for Students");
 			System.out.println("6. Entry of return books");
 			System.out.println("7. Remove books from library");
@@ -46,8 +46,8 @@ public class Main {
 			int choice = scan.nextInt();
 
 			if (choice == 1) {
-				// Add Students
-				// ---------------------------------------------------------------------------------------------------------
+// Add Students
+// ---------------------------------------------------------------------------------------------------------
 				System.out.println("Enter studentid");
 				int studentid = scan.nextInt();
 				System.out.println("Enter first name::");
@@ -79,34 +79,37 @@ public class Main {
 				db.addbook(book1);
 
 			} else if (choice == 3) {
-
+//---------------------------------------------------------------------------------------------------------
 // View all Students
-// call method for viewing students/
+// call method for viewing students
 				System.out.println("\t\tAll Students :\n");
 				BooksDaoInterface db = new BooksDaoDb();
 				db.viewAllStudent();
 
-				// -----------------------------------------------------------------------------------------------------------
 			} else if (choice == 4) {
-// View all books
+// -----------------------------------------------------------------------------------------------------------
+// View all books		
+
 				System.out.println("\t\tAll books in Library:\n");
 				BooksDaoInterface db = new BooksDaoDb();
 				db.viewbooks();
 
 			} else if (choice == 5) {
-				// issue books for student
-				// ----------------------------------------------------------------------------------------------------------
-				// if Student is registered
+// issue books for student
+// ----------------------------------------------------------------------------------------------------------
+// conditions required ::				
+// if Student is registered or not
+// limit for borrowing books				
+//if book exist in library or not 
+//All done				
 				System.out.println("Enter Student id:");
 				int studentid = scan.nextInt();
 				int bookscount = 0;
 
-				// Student st = new Student();
 				LibrarianService ls = new LibrarianService();
-				boolean b = ls.searchbystudentid(null);
+				boolean b = ls.searchbystudentid(studentid);
 
-//need to fix issue comparing 
-				if (true) {
+				if (ls.searchbystudentid(studentid)) {
 
 					System.out.println("Enter issuedate : ");
 					LocalDate issueddate = null;
@@ -133,7 +136,7 @@ public class Main {
 
 						}
 
-						System.out.println("books issued " + bookscount);
+						System.out.println(" You issued  " + bookscount +" books and please return after 14 days");
 
 					}
 
@@ -141,41 +144,39 @@ public class Main {
 					System.out.println("You are not registered in Student list yet."
 							+ " And  you cannot issue any books until you don't get registered");
 				}
-				Books book1 = new Books();
-				BooksDaoInterface db = new BooksDaoDb();
-				db.issuedbooks(book1);
 
 			} else if (choice == 6) {
-				// Entry of return books
-				// ---------------------------------------------------------------------------------------------------------
+// Entry of return books
+// ---------------------------------------------------------------------------------------------------------
+//match studentid to make book return entry 
+// we can add more functions here give time limit for returning books and if delayed ,charge delayed fee.
+// not done				
 				System.out.println("Enter Student id:");
 				int studentid = scan.nextInt();
+				LibrarianService ls = new LibrarianService();
+				boolean b = ls.searchbystudentid(studentid);
 
-				// if Student is registered
+				if (ls.searchbystudentid(studentid)) {
 
-				if (studentid == studentid) {
 					System.out.println("Enter SerialNo of book to return  ");
 					String bname = scan.next();
 					System.out.println("Enter returneddate: ");
 					String returneddate1 = scan.next();
 					LocalDate returneddate = LocalDate.parse(returneddate1, DateTimeFormatter.ISO_LOCAL_DATE);
-					System.out.println("Number of books :");
+					System.out.println("Number of books to be returned :");
 					int books = scan.nextInt();
 
-					System.out.println("books returned");
+					System.out.println("books returned " + books);
 
 				} else {
-					System.out.println("You are not registered in Student list ");
+					System.out.println("Student not found ");
 
 				}
-				Books book1 = new Books();
-				BooksDaoInterface db = new BooksDaoDb();
-				db.returnedbooks(book1);
 
-			} else if (choice == 6) {
+			} else if (choice == 7) {
 
-				// -----------------------------------------------------------------------------------------------------------
-				// Remove books from library
+// -----------------------------------------------------------------------------------------------------------
+// Remove books from library
 				System.out.println("Enter serial number of book:");
 				int sNo = scan.nextInt();
 
@@ -204,7 +205,7 @@ public class Main {
 			String password = scan.next();
 
 			if (username.equals("a") && (password.contentEquals("1"))) {
-				System.out.println("Login Successfull.You can proceed further.");
+				System.out.println("Login Successfull.You can proceed further.\n");
 
 				// FUNC
 				// librarianfunction(scan);
