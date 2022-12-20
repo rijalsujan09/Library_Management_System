@@ -30,34 +30,21 @@ public class Main {
 		LibrarianService lb = new LibrarianService();
 
 		while (true) {
-			System.out.println("1.librarianfunction");
+			//
+
+			System.out.println("1. Add Students");
+			System.out.println("2. Add Books to library ");
+			System.out.println("3. View All Students");
+			System.out.println("4.View All Books ");
+			System.out.println("5. Issue books for Students");
+			System.out.println("6. Entry of return books");
+			System.out.println("7. Remove books from library");
+			System.out.println("8. Exit from system");
 
 			System.out.println("\nEnter your choice::");
-			choice = scan.nextInt();
-			if (choice == 1) {
-				librarianfunction(scan);
-			}
-			break;
-		}
 
-	}
+			int choice = scan.nextInt();
 
-	public static void librarianfunction(Scanner scan) throws ClassNotFoundException, IOException, SQLException {
-
-		System.out.println("1. Add Students");
-		System.out.println("2. Add Books to library ");
-		System.out.println("3. View All Students");
-		System.out.println("4.View All Books ");
-		System.out.println("5. Issue books for Students");
-		System.out.println("6. Entry of return books");
-		System.out.println("7. Remove books from library");
-		System.out.println("8. Exit from system");
-
-		System.out.println("\nEnter your choice::");
-
-		choice = scan.nextInt();
-
-		{
 			if (choice == 1) {
 				// Add Students
 				// ---------------------------------------------------------------------------------------------------------
@@ -76,8 +63,8 @@ public class Main {
 				db.addstudent(Student1);
 
 			} else if (choice == 2) {
-				// Add books to library
-				// ----------------------------------------------------------------------------------------------------------
+// Add books to library
+// ----------------------------------------------------------------------------------------------------------
 				System.out.println("Enter serial number of book:");
 				int serialNo = scan.nextInt();
 				System.out.println("Enter book name: ");
@@ -93,15 +80,15 @@ public class Main {
 
 			} else if (choice == 3) {
 
-				// View all Students
-				// call method for viewing students/
+// View all Students
+// call method for viewing students/
 				System.out.println("\t\tAll Students :\n");
 				BooksDaoInterface db = new BooksDaoDb();
 				db.viewAllStudent();
 
 				// -----------------------------------------------------------------------------------------------------------
 			} else if (choice == 4) {
-				// View all books
+// View all books
 				System.out.println("\t\tAll books in Library:\n");
 				BooksDaoInterface db = new BooksDaoDb();
 				db.viewbooks();
@@ -113,20 +100,19 @@ public class Main {
 				System.out.println("Enter Student id:");
 				int studentid = scan.nextInt();
 				int bookscount = 0;
-				//Student st = new Student();
+
+				// Student st = new Student();
 				LibrarianService ls = new LibrarianService();
-				
+				boolean b = ls.searchbystudentid(null);
+
 //need to fix issue comparing 
-				if ( studentid==ls.searchbystudentid() ) {
+				if (true) {
 
 					System.out.println("Enter issuedate : ");
 					LocalDate issueddate = null;
 					String issueddate1 = scan.next();
 					issueddate = LocalDate.parse(issueddate1, DateTimeFormatter.ISO_LOCAL_DATE);
 
-					System.out.println("Enter returneddate: ");
-					String returneddate1 = scan.next();
-					LocalDate returneddate = LocalDate.parse(issueddate1, DateTimeFormatter.ISO_LOCAL_DATE);
 					System.out.println("Number of books to be  issued:");
 					int qbooks = scan.nextInt();
 					if (qbooks > 3) {
@@ -136,8 +122,7 @@ public class Main {
 						for (int i = 0; i < qbooks; i++) {
 							System.out.println("Enter SerialNo of book to issue  ");
 							int serialNo = scan.nextInt();
-							Books bk = new Books();
-							if (bk.getSerialNo() == serialNo) {
+							if (ls.searchbyserialNo(serialNo)) {
 
 								bookscount++;
 
@@ -151,6 +136,7 @@ public class Main {
 						System.out.println("books issued " + bookscount);
 
 					}
+
 				} else {
 					System.out.println("You are not registered in Student list yet."
 							+ " And  you cannot issue any books until you don't get registered");
@@ -170,8 +156,9 @@ public class Main {
 				if (studentid == studentid) {
 					System.out.println("Enter SerialNo of book to return  ");
 					String bname = scan.next();
-					System.out.println("Enter return date:");
-					LocalDate date = LocalDate.now();
+					System.out.println("Enter returneddate: ");
+					String returneddate1 = scan.next();
+					LocalDate returneddate = LocalDate.parse(returneddate1, DateTimeFormatter.ISO_LOCAL_DATE);
 					System.out.println("Number of books :");
 					int books = scan.nextInt();
 

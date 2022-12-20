@@ -176,16 +176,7 @@ public class BooksDaoDb implements BooksDaoInterface {
 
 			statement = con.createStatement();
 
-			ResultSet results = statement.executeQuery(query);
-
-			while (results.next()) {
-
-				System.out.println(results.getString(1));
-				System.out.println(results.getString(2));
-				System.out.println(results.getString(3));
-				System.out.println(results.getString(4));
-
-			}
+			int results = statement.executeUpdate(query);
 
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -223,16 +214,7 @@ public class BooksDaoDb implements BooksDaoInterface {
 
 			statement = con.createStatement();
 
-			ResultSet results = statement.executeQuery(query);
-
-			while (results.next()) {
-
-				System.out.println(results.getString(1));
-				System.out.println(results.getString(2));
-				System.out.println(results.getString(3));
-				System.out.println(results.getString(4));
-
-			}
+			int results = statement.executeUpdate(query);
 
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -338,7 +320,7 @@ public class BooksDaoDb implements BooksDaoInterface {
 	}
 
 	@Override
-	public Books searchbyserialNo(Books serialNo) throws ClassNotFoundException, SQLException, IOException {
+	public Books searchbyserialNo(int serialNo) throws ClassNotFoundException, SQLException, IOException {
 		Connection con = null;
 		Statement statement = null;
 		Books book = null;
@@ -351,7 +333,7 @@ public class BooksDaoDb implements BooksDaoInterface {
 			ResultSet results = statement.executeQuery(query);
 			while (results.next()) {
 				book = new Books();
-				 book.setSerialNo(results.getInt(1));
+				book.setSerialNo(results.getInt(1));
 
 			}
 		} catch (ClassNotFoundException e) {
@@ -372,8 +354,7 @@ public class BooksDaoDb implements BooksDaoInterface {
 		}
 
 		return book;
-	
 
-}
+	}
 
 }

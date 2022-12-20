@@ -61,13 +61,16 @@ public class LibrarianService {
         }
         return false;
     }
-	public boolean searchbyserialNo(Books serialNo) throws ClassNotFoundException, SQLException {
+	public boolean searchbyserialNo(int serialNo) throws ClassNotFoundException, SQLException {
+		
+		
+		
 
-
+		Books book = null;
         BooksDaoInterface db = new BooksDaoDb();
       // Student student = null;
         try {
-            db.searchbyserialNo(serialNo);
+           book= db.searchbyserialNo(serialNo);
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -75,12 +78,11 @@ public class LibrarianService {
             e.printStackTrace();
         }
 
-        if (serialNo == null) {
+        if (null== book) {
             return false;
-        } else if(serialNo.equals(serialNo)) {
+        } else  {
             return true;
         }
-        return false;
     }
 }
 

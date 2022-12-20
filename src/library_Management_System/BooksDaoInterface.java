@@ -11,8 +11,8 @@ public interface BooksDaoInterface {
 	 public Books issuedbooks(Books book)throws ClassNotFoundException, SQLException, IOException;
 	 public Books returnedbooks(Books book)throws ClassNotFoundException, SQLException, IOException;
 	 public Books removebooks(Books book)throws ClassNotFoundException, SQLException, IOException;
-	 public Student searchbystudentid(Student student)throws ClassNotFoundException, SQLException, IOException;
-	 public Books searchbyserialNo(Books book)throws ClassNotFoundException, SQLException, IOException;
+	 public Student searchbystudentid(Student studentid)throws ClassNotFoundException, SQLException, IOException;
+	 public Books searchbyserialNo(int serialNo)throws ClassNotFoundException, SQLException, IOException;
 	 }
 
 
