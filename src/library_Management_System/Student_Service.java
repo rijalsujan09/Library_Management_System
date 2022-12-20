@@ -8,9 +8,10 @@ public class Student_Service {
 	
 //	Option For Student
 //----------------------------------------------------------------------------------------------------------------------------------
-	public static void studentfunction() {
+	public static Student studentfunction() {
 		System.out.println("1. Borrow Book");
 		System.out.println("2. Return Book");
+		return null;
 	}
 //----------------------------------------------------------------------------------------------------------------------------------
 
