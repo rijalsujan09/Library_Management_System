@@ -3,13 +3,16 @@ package library_Management_System;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Scanner;
 
 public class Main {
 	public static Scanner scan = new Scanner(System.in);
-
+	static LocalDate expectedreturndate = null;
 	static int choice = 0;
 
 	public static void main(String[] args)
@@ -113,18 +116,23 @@ public class Main {
 
 					System.out.println("Enter issuedate : ");
 					LocalDate issueddate = null;
+					int serialNo =0;
+					LocalDate returneddate =null;
 					String issueddate1 = scan.next();
 					issueddate = LocalDate.parse(issueddate1, DateTimeFormatter.ISO_LOCAL_DATE);
+//books must be returned by 14 days from issueddate
+					
+					expectedreturndate = issueddate.plusDays(14);
 
-					System.out.println("Number of books to be  issued:");
-					int qbooks = scan.nextInt();
-					if (qbooks > 3) {
+					System.out.println("\nNumber of books to be  issued:");
+					int bookquantity = scan.nextInt();
+					if (bookquantity > 3) {
 						System.out.println("Student cannot borrow more than 3 books");
 					} else {
 
-						for (int i = 0; i < qbooks; i++) {
+						for (int i = 0; i < bookquantity; i++) {
 							System.out.println("Enter SerialNo of book to issue  ");
-							int serialNo = scan.nextInt();
+							serialNo = scan.nextInt();
 							if (ls.searchbyserialNo(serialNo)) {
 
 								bookscount++;
@@ -136,14 +144,21 @@ public class Main {
 
 						}
 
-						System.out.println(" You issued  " + bookscount +" books and please return after 14 days");
+						System.out
+								.println(" You issued  " + bookscount + " books \nExpected returndate:" + expectedreturndate);
 
 					}
+					
+					Books books = new Books(studentid,issueddate,bookquantity,serialNo,expectedreturndate,returneddate);
+					BooksDaoInterface db = new BooksDaoDb();
+					db.issuedbooks(books );
 
 				} else {
 					System.out.println("You are not registered in Student list yet."
 							+ " And  you cannot issue any books until you don't get registered");
 				}
+				
+				
 
 			} else if (choice == 6) {
 // Entry of return books
@@ -160,9 +175,23 @@ public class Main {
 
 					System.out.println("Enter SerialNo of book to return  ");
 					String bname = scan.next();
-					System.out.println("Enter returneddate: ");
+
+					System.out.println(" Enter Returned date: ");
+					LocalDate returneddate = null;
 					String returneddate1 = scan.next();
-					LocalDate returneddate = LocalDate.parse(returneddate1, DateTimeFormatter.ISO_LOCAL_DATE);
+					returneddate = LocalDate.parse(returneddate1, DateTimeFormatter.ISO_LOCAL_DATE);
+
+					// returneddate =LocalDate.now();
+					// In actual system above commented method can be used to avoid user(librarian)
+					// manipulation/error.
+					// and it can be applied to issuedate also.
+
+					System.out.println(returneddate);
+					Period period = Period.between(returneddate, expectedreturndate);
+					System.out.print(period.getDays() + " Latedays");
+
+					// Period period = Period.between(expectedreturndate, returneddate);
+
 					System.out.println("Number of books to be returned :");
 					int books = scan.nextInt();
 
@@ -177,17 +206,33 @@ public class Main {
 
 // -----------------------------------------------------------------------------------------------------------
 // Remove books from library
-				System.out.println("Enter serial number of book:");
-				int sNo = scan.nextInt();
+				while (true) {
+					System.out.println("Enter serial number of book:");
+					int serialNo = scan.nextInt();
+					LibrarianService ls = new LibrarianService();
+
+					if (ls.searchbyserialNo(serialNo)) {
+
+						System.out.println("Book found ");
+
+						// bookscount++;
+
+					} else {
+						System.out.println("Book doesnot exist in system.\n");
+						break;
+					}
+					continue;
+				}
 
 				System.out.println("Enter quantity of book: ");
 				int quantity = scan.nextInt();
+				
 				Books book1 = new Books();
 				BooksDaoInterface db = new BooksDaoDb();
 				db.removebooks(book1);
+				System.out.println("Books Removed : ");
 			}
 		}
-
 	}
 	// ---------------------------------------------------------------------------------------------------------------------------
 

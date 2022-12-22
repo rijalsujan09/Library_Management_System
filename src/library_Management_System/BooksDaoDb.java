@@ -172,14 +172,18 @@ public class BooksDaoDb implements BooksDaoInterface {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
-			String query = "INSERT INTO bookrecords (serialNo,studentid,issueddate)" + "value ( '" + book.getSerialNo()
-					+ book.getstudentid() + book.getIssueddate() + "')";
+			String insertquery = "INSERT INTO bookrecords ( studentid,issueddate,bookquantity,serialNo,expectedreturndate,returneddate)"
+					+ "value ( '" + book.getstudentid() + book.getIssueddate() + book.getBookquantity()
+					+ book.getSerialNo() + book.getExpectedreturndate() + book.getReturneddate() + "')";
 
-			// System.out.println(query);
-
+			System.out.println(insertquery);
 			statement = con.createStatement();
 
-			int results = statement.executeUpdate(query);
+			int resultValue = statement.executeUpdate(insertquery);
+
+			if (resultValue == 2) {
+				System.out.println("Failed to insert/update data. Check your data and try again.");
+			}
 
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -210,14 +214,17 @@ public class BooksDaoDb implements BooksDaoInterface {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
-			String query = "INSERT INTO bookrecords (serialNo,studentid,returneddate)" + "value ( '"
-					+ book.getSerialNo() + book.getstudentid() + book.getReturneddate() + "')";
-
-			// System.out.println(query);
-
+			String insertquery = "UPDATE bookrecords WHERE  studentid= "+(book).getstudentid()
+					+ "value ( '" + book.getstudentid() + book.getIssueddate() + book.getBookquantity()
+					+ book.getSerialNo() + book.getExpectedreturndate() + book.getReturneddate() + "')";
+			
+			System.out.println(insertquery);
 			statement = con.createStatement();
+			int resultValue = statement.executeUpdate(insertquery);
 
-			int results = statement.executeUpdate(query);
+			if (resultValue == 2) {
+				System.out.println("Failed to insert/update data. Check your data and try again.");
+			}
 
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
