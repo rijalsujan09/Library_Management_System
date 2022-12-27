@@ -15,74 +15,74 @@ public class LibrarianService {
 		db.addbook(book);
 		return book;
 	}
-	 public void viewAllStudent() throws  ClassNotFoundException, SQLException, IOException {
-		 BooksDaoInterface db = new BooksDaoDb();
-			db.viewAllStudent();
-			
-	}
-	 public void viewbooks() throws ClassNotFoundException, SQLException, IOException {
-		 BooksDaoInterface db = new BooksDaoDb();
-			db.viewbooks();
-	}
-	 public Books issuedbooks(Books book)throws ClassNotFoundException, SQLException, IOException {
-		 BooksDaoInterface db = new BooksDaoDb();
-			db.issuedbooks(book);
-			return book;
-	}
-	 public Books returnedbooks(Books book)throws ClassNotFoundException, SQLException, IOException {
-		 BooksDaoInterface db = new BooksDaoDb();
-			db.returnedbooks(book);
-			return book;
+
+	public void viewAllStudent() throws ClassNotFoundException, SQLException, IOException {
+		BooksDaoInterface db = new BooksDaoDb();
+		db.viewAllStudent();
+
 	}
 
-	public Books removebooks(Books book)throws ClassNotFoundException, SQLException, IOException {
-		 BooksDaoInterface db = new BooksDaoDb();
-			db.removebooks(book);
-			return book;
+	public void viewbooks() throws ClassNotFoundException, SQLException, IOException {
+		BooksDaoInterface db = new BooksDaoDb();
+		db.viewbooks();
 	}
-	public boolean searchbystudentid(Student studentid) throws ClassNotFoundException, SQLException {
 
+	public Books issuedbooks(Books book) throws ClassNotFoundException, SQLException, IOException {
+		BooksDaoInterface db = new BooksDaoDb();
+		db.issuedbooks(book);
+		return book;
+	}
 
-        BooksDaoInterface db = new BooksDaoDb();
-      // Student student = null;
-        try {
-            db.searchbystudentid(studentid);
+	public Books returnedbooks(Books book) throws ClassNotFoundException, SQLException, IOException {
+		BooksDaoInterface db = new BooksDaoDb();
+		db.returnedbooks(book);
+		return book;
+	}
 
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            System.out.println("Some issue occurred");
-            e.printStackTrace();
-        }
+	public Books removebooks(Books book) throws ClassNotFoundException, SQLException, IOException {
+		BooksDaoInterface db = new BooksDaoDb();
+		db.removebooks(book);
+		return book;
+	}
 
-        if (studentid == null) {
-            return false;
-        } else if(studentid.equals(studentid)) {
-            return true;
-        }
-        return false;
-    }
+	public boolean searchbystudentid(int studentid) throws ClassNotFoundException, SQLException {
+
+		BooksDaoInterface db = new BooksDaoDb();
+		Student student = null;
+		try {
+			student = db.searchbystudentid(studentid);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Some issue occurred");
+			e.printStackTrace();
+		}
+
+		if (student == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	public boolean searchbyserialNo(int serialNo) throws ClassNotFoundException, SQLException {
-		
-		
-		
 
 		Books book = null;
-        BooksDaoInterface db = new BooksDaoDb();
-      // Student student = null;
-        try {
-           book= db.searchbyserialNo(serialNo);
+		BooksDaoInterface db = new BooksDaoDb();
+		// Student student = null;
+		try {
+			book = db.searchbyserialNo(serialNo);
 
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            System.out.println("Some issue occurred");
-            e.printStackTrace();
-        }
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Some issue occurred");
+			e.printStackTrace();
+		}
 
-        if (null== book) {
-            return false;
-        } else  {
-            return true;
-        }
-    }
+		if (book == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }
-
