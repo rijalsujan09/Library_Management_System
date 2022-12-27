@@ -1,18 +1,16 @@
 package library_Management_System;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Scanner;
 
 public class Main {
 	public static Scanner scan = new Scanner(System.in);
 	static LocalDate expectedreturndate = null;
+
 	static int choice = 0;
 
 	public static void main(String[] args)
@@ -116,12 +114,12 @@ public class Main {
 
 					System.out.println("Enter issuedate : ");
 					LocalDate issueddate = null;
-					int serialNo =0;
-					LocalDate returneddate =null;
+					int serialNo = 0;
+					LocalDate returneddate = null;
 					String issueddate1 = scan.next();
 					issueddate = LocalDate.parse(issueddate1, DateTimeFormatter.ISO_LOCAL_DATE);
 //books must be returned by 14 days from issueddate
-					
+
 					expectedreturndate = issueddate.plusDays(14);
 
 					System.out.println("\nNumber of books to be  issued:");
@@ -142,23 +140,20 @@ public class Main {
 
 							}
 
+							System.out.println(" You issued  " + bookscount + " books \nExpected returndate:"
+									+ expectedreturndate);
+
 						}
 
-						System.out
-								.println(" You issued  " + bookscount + " books \nExpected returndate:" + expectedreturndate);
+						Books books = new Books(studentid, issueddate, bookquantity, serialNo, expectedreturndate);
 
+						BooksDaoInterface db = new BooksDaoDb();
+						db.issuedbooks(books);
 					}
-					
-					Books books = new Books(studentid,issueddate,bookquantity,serialNo,expectedreturndate,returneddate);
-					BooksDaoInterface db = new BooksDaoDb();
-					db.issuedbooks(books );
-
 				} else {
 					System.out.println("You are not registered in Student list yet."
 							+ " And  you cannot issue any books until you don't get registered");
 				}
-				
-				
 
 			} else if (choice == 6) {
 // Entry of return books
@@ -168,13 +163,30 @@ public class Main {
 // not done				
 				System.out.println("Enter Student id:");
 				int studentid = scan.nextInt();
+				int bookscount = 0;
+				int serialNo = 0;
 				LibrarianService ls = new LibrarianService();
 				boolean b = ls.searchbystudentid(studentid);
 
 				if (ls.searchbystudentid(studentid)) {
+					System.out.println("Enter quantity of returning books:");
+					int bookquantity = scan.nextInt();
 
 					System.out.println("Enter SerialNo of book to return  ");
-					String bname = scan.next();
+					serialNo = scan.nextInt();
+					for (int i = 0; i < bookquantity; i++) {
+						if (ls.searchbyserialNo(serialNo)) {
+
+							bookscount++;
+
+						} else {
+							System.out.println("Book doesnot exist in system.");
+
+						}
+
+					}
+
+					System.out.println(" You Returned  " + bookscount + "of SerialNo: " + serialNo);
 
 					System.out.println(" Enter Returned date: ");
 					LocalDate returneddate = null;
@@ -187,8 +199,8 @@ public class Main {
 					// and it can be applied to issuedate also.
 
 					System.out.println(returneddate);
-					Period period = Period.between(returneddate, expectedreturndate);
-					System.out.print(period.getDays() + " Latedays");
+					Period period = Period.between(expectedreturndate, returneddate);
+					System.out.print(period.getDays() + " Latedays ");
 
 					// Period period = Period.between(expectedreturndate, returneddate);
 
@@ -205,6 +217,7 @@ public class Main {
 			} else if (choice == 7) {
 
 // -----------------------------------------------------------------------------------------------------------
+//Librarian functionality				
 // Remove books from library
 				while (true) {
 					System.out.println("Enter serial number of book:");
@@ -219,19 +232,24 @@ public class Main {
 
 					} else {
 						System.out.println("Book doesnot exist in system.\n");
-						break;
+						continue;
 					}
-					continue;
+					break;
 				}
 
 				System.out.println("Enter quantity of book: ");
 				int quantity = scan.nextInt();
+//After removing book from booklist  , quantity of book should decrease in sql table.
+// for this we have to write a proper query 				
+				
 				
 				Books book1 = new Books();
 				BooksDaoInterface db = new BooksDaoDb();
 				db.removebooks(book1);
 				System.out.println("Books Removed : ");
+				System.out.println("Books removed "+ book1 + " and remaining book of this serialno in booklist is: ");
 			}
+			continue;
 		}
 	}
 	// ---------------------------------------------------------------------------------------------------------------------------

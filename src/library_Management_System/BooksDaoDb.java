@@ -165,42 +165,33 @@ public class BooksDaoDb implements BooksDaoInterface {
 	// Issue books for Students
 
 	@Override
-	public Books issuedbooks(Books book) {
-		Connection con = null;
-		Statement statement = null;
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+	public Books issuedbooks(Books book) throws ClassNotFoundException, SQLException {
+		// Connection con = null;
+		// Statement statement = null;
 
-			String insertquery = "INSERT INTO bookrecords ( studentid,issueddate,bookquantity,serialNo,expectedreturndate,returneddate)"
-					+ "value ( '" + book.getstudentid() + book.getIssueddate() + book.getBookquantity()
-					+ book.getSerialNo() + book.getExpectedreturndate() + book.getReturneddate() + "')";
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
-			System.out.println(insertquery);
-			statement = con.createStatement();
+		String insertquery = "INSERT INTO bookrecords ( studentid,issueddate,bookquantity,serialNo,expectedreturndate)"
+				+ "value ( '" + book.getstudentid() + "', '" + book.getIssueddate() + "', '" + book.getBookquantity()
+				+ "', '" + book.getSerialNo() + "', '" + book.getExpectedreturndate() 
+				+ "')";
 
-			int resultValue = statement.executeUpdate(insertquery);
+		System.out.println(insertquery);
+		Statement statement = con.createStatement();
 
-			if (resultValue == 2) {
-				System.out.println("Failed to insert/update data. Check your data and try again.");
-			}
+		int resultValue = statement.executeUpdate(insertquery);
+		System.out.println(resultValue);
 
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				statement.close();
-				con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		//
 
+		if (resultValue == 2) {
+			System.out.println("Failed to insert/update data. Check your data and try again.");
 		}
+
+		statement.close();
+		con.close();
+
 		return book;
 
 	}
@@ -214,10 +205,11 @@ public class BooksDaoDb implements BooksDaoInterface {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
-			String insertquery = "UPDATE bookrecords WHERE  studentid= "+(book).getstudentid()
-					+ "value ( '" + book.getstudentid() + book.getIssueddate() + book.getBookquantity()
-					+ book.getSerialNo() + book.getExpectedreturndate() + book.getReturneddate() + "')";
-			
+			String insertquery = "UPDATE bookrecords WHERE  studentid= " + (book).getstudentid() + "value ( '"
+					+ book.getstudentid() + "', '" + book.getIssueddate() + "', '" + book.getBookquantity() + "', '"
+					+ book.getSerialNo() + "', '" + book.getExpectedreturndate() + "', '" + book.getReturneddate()
+					+ "')";
+
 			System.out.println(insertquery);
 			statement = con.createStatement();
 			int resultValue = statement.executeUpdate(insertquery);

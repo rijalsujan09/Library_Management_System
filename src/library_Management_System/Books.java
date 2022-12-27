@@ -11,7 +11,7 @@ public class Books extends Student {
 	private LocalDate issueddate;
 	private LocalDate returneddate;
 	private LocalDate expectedreturndate;
-
+//getter and  setter generated
 	public LocalDate getReturneddate() {
 		return returneddate;
 	}
@@ -56,7 +56,7 @@ public class Books extends Student {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+//Constructor
 	public Books(int serialNo, String bookName, String authorName, int bookquantity) {
 		super();
 		this.serialNo = serialNo;
@@ -74,21 +74,24 @@ public class Books extends Student {
 
 	}
 
-	public Books(int studentid, LocalDate issueddate, int bookquantity, int serialNo, LocalDate expectedreturndate,
-			LocalDate returneddate) {
+	public Books(int studentid, LocalDate issueddate, int bookquantity, int serialNo, LocalDate expectedreturndate) {
 		super();
 		this.studentid = studentid;
 		this.issueddate = issueddate;
 		this.bookquantity = bookquantity;
 		this.serialNo = serialNo;
 		this.expectedreturndate = expectedreturndate;
-		this.returneddate = returneddate;
 
 	}
 
-	public String getstudentid() {
+	public void setstudentid(int studentid) {
+		this.studentid = studentid;
+
+	}
+
+	public int getstudentid() {
 		// TODO Auto-generated method stub
-		return null;
+		return studentid;
 	}
 
 	@Override

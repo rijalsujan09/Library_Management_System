@@ -1,7 +1,5 @@
 package library_Management_System;
 
-import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Scanner;
 
